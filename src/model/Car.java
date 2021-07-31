@@ -42,17 +42,17 @@ public class Car {
         HashSet<Position> wall = new HashSet<>();
         for (int i = 0; i < SPEED; i++) {
             if (direction == 0 || direction == 360) {
+                wall.add(new Position(pos.getX(), pos.getY()));
                 pos.moveY(1);
-                wall.add(pos);
             } else if (direction == 90) {
+                wall.add(new Position(pos.getX(), pos.getY()));
                 pos.moveX(1);
-                wall.add(pos);
             } else if (direction == 180) {
+                wall.add(new Position(pos.getX(), pos.getY()));
                 pos.moveY(-1);
-                wall.add(pos);
             } else if (direction == 270) {
+                wall.add(new Position(pos.getX(), pos.getY()));
                 pos.moveX(-1);
-                wall.add(pos);
             }
         }
         return wall;
