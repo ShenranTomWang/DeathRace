@@ -1,6 +1,6 @@
 package model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Car {
     public static final int SPEED = 10;
@@ -38,8 +38,8 @@ public class Car {
 
     //MODIFIES: this
     //EFFECTS: move car SPEED towards direction, and record positions along the way in wall
-    public HashSet<Position> move() {
-        HashSet<Position> wall = new HashSet<>();
+    public ArrayList<Position> move() {
+        ArrayList<Position> wall = new ArrayList<>();
         for (int i = 0; i < SPEED; i++) {
             if (direction == 0 || direction == 360) {
                 wall.add(new Position(pos.getX(), pos.getY()));

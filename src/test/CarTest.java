@@ -2,11 +2,13 @@ package test;
 
 import model.Car;
 import model.Position;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CarTest {
 
@@ -47,7 +49,7 @@ public class CarTest {
 
     @Test
     public void testMoveN() {
-        HashSet<Position> wall = car.move();
+        ArrayList<Position> wall = car.move();
         System.out.println(wall);
         for (int i = 0; i < 10; i++) {
             assertTrue(wall.contains(new Position(0, i)));
@@ -59,7 +61,7 @@ public class CarTest {
     public void testMoveS() {
         car.turnLeft();
         car.turnLeft();
-        HashSet<Position> wall = car.move();
+        ArrayList<Position> wall = car.move();
         for (int i = 0; i < Car.SPEED; i++) {
             assertTrue(wall.contains(new Position(0, -i)));
         }
@@ -69,7 +71,7 @@ public class CarTest {
     @Test
     public void testMoveW() {
         car.turnLeft();
-        HashSet<Position> wall = car.move();
+        ArrayList<Position> wall = car.move();
         for (int i = 0; i < Car.SPEED; i++) {
             assertTrue(wall.contains(new Position(-i, 0)));
         }
@@ -79,7 +81,7 @@ public class CarTest {
     @Test
     public void testMoveE() {
         car.turnRight();
-        HashSet<Position> wall = car.move();
+        ArrayList<Position> wall = car.move();
         for (int i = 0; i < Car.SPEED; i++) {
             assertTrue(wall.contains(new Position(i, 0)));
         }
