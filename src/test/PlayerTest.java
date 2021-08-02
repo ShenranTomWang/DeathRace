@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class PlayerTest {
 
@@ -39,5 +40,12 @@ public class PlayerTest {
         assertEquals(0, player1.getScore());
         player1.addOneToScore();
         assertEquals(1, player1.getScore());
+    }
+
+    @Test
+    public void testResetCar() {
+        player1.getCar().setCollided();
+        player1.resetCar(new Position(0, 0), 0);
+        assertFalse(player1.getCar().isCollided());
     }
 }

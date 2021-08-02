@@ -27,6 +27,12 @@ public class Player {
         score++;
     }
 
+    //MODIFIES: this
+    //EFFECTS: reset the car
+    public void resetCar(Position pos, int direction) {
+        this.car = new Car(pos, direction);
+    }
+
     //getters
 
     public String getName() {

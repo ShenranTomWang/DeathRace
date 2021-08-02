@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CarTest {
 
@@ -86,5 +85,12 @@ public class CarTest {
             assertTrue(wall.contains(new Position(i, 0)));
         }
         assertEquals(new Position(Car.SPEED, 0), car.getPos());
+    }
+
+    @Test
+    public void testCollision() {
+        car.setCollided();
+        assertFalse(car.isCollided());
+        assertEquals(0, car.getSpeed());
     }
 }
