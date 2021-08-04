@@ -5,6 +5,8 @@ import model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -15,8 +17,8 @@ public class PlayerTest {
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("Player1", new Position(1, 1), 0);
-        player2 = new Player("Player2", 0, 0, 0);
+        player1 = new Player("Player1", new Position(1, 1), 0, Color.BLUE);
+        player2 = new Player("Player2", 0, 0, 0, Color.RED);
     }
 
     @Test

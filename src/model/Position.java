@@ -1,8 +1,14 @@
 package model;
 
+import java.awt.*;
 import java.util.Objects;
 
-public class Position {
+public class Position implements Item{
+
+    public static final Color COLOR = Color.orange;
+    public static final int SIZE_X = 5;
+    public static final int SIZE_Y = 5;
+
     private int x;
     private int y;
 
@@ -28,6 +34,14 @@ public class Position {
     }
 
     @Override
+    public void draw(Graphics g) {
+        Color savedCol = g.getColor();
+        g.setColor(COLOR);
+        g.fillOval(x - SIZE_X / 2, y - SIZE_Y / 2, SIZE_X, SIZE_Y);
+        g.setColor(savedCol);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -50,4 +64,6 @@ public class Position {
     public int getY() {
         return y;
     }
+
+
 }

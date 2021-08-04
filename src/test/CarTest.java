@@ -1,10 +1,10 @@
 package test;
 
-import model.Car;
-import model.Position;
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +15,7 @@ public class CarTest {
 
     @BeforeEach
     public void setUp() {
-        car = new Car(new Position(0, 0), 0);
+        car = new Car(new Position(0, 0), 0, Color.BLUE);
     }
 
     @Test
