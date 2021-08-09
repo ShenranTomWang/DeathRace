@@ -1,6 +1,6 @@
-package test;
+package test.model;
 
-import model.Position;
+import main.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

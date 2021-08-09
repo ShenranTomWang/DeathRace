@@ -1,9 +1,9 @@
-package model;
+package main.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Car implements Item {
+public class Car implements Drawable {
 
     public static final int SIZE_X = 10;
     public static final int SIZE_Y = 10;
@@ -70,6 +70,12 @@ public class Car implements Item {
     //EFFECTS: set collided to true, stop the car
     public void setCollided() {
         this.collided = true;
+        this.speed = 0;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set speed to 0
+    public void stop() {
         this.speed = 0;
     }
 

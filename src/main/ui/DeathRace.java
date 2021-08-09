@@ -1,6 +1,6 @@
-package ui;
+package main.ui;
 
-import model.Game;
+import main.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Scanner;
 
 //this is the main class
 public class DeathRace extends JFrame {
     public static final int INTERVAL = 1;
+    public static final String NAME1 = "Please enter name for player 1: ";
+    public static final String NAME2 = "Please enter name for player 2: ";
 
     private Game game;
     private GamePanel gp;
@@ -24,17 +27,24 @@ public class DeathRace extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setSize(new Dimension(Game.BOARD_X, Game.BOARD_Y));
-        game = new Game();
+        game = new Game(getName(NAME1), getName(NAME2));
         gp = new GamePanel(game);
         sp = new ScorePanel(game);
         add(gp);
-        //add(sp);
+        add(sp, BorderLayout.NORTH);
         pack();
         centerOnScreen();
         setVisible(true);
         addKeyListener(new KeyHandler());
         addTimer();
         timer.start();
+    }
+
+    //EFFECTS: print instruction and return name
+    public String getName(String instruction) {
+        System.out.println(instruction);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 
     //MODIFIES: this
@@ -50,8 +60,10 @@ public class DeathRace extends JFrame {
         timer = new Timer(INTERVAL, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.doGameCycle();
-                gp.repaint();
+                    game.doGameCycle();
+                    gp.repaint();
+                    gp.handleInstructionDisplay();
+                    sp.update();
             }
         });
     }

@@ -1,11 +1,10 @@
-package model;
+package main.model;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 //This class represents the game, in charge of managing data of the game
 public class Game {
@@ -17,32 +16,15 @@ public class Game {
     private Player player1;
     private Player player2;
     private List<Position> walls;
+    private Player winner;
 
     //EFFECTS: do setup and start game
-    public Game(){
-        setUp();
-    }
-
-    //MODIFIES: this
-    //EFFECTS: set up necessary data, initialize MAX_PLAYER_AMOUNT players at random positions
-    private void setUp(){
-        end = false;
+    public Game(String name1, String name2){
         Random rand = new Random();
-        Scanner playerName = new Scanner(System.in);
-        System.out.println("enter player’s name for player 1: ");
-        if (playerName.hasNextLine()) {
-            player1 = new Player(playerName.nextLine(), rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.BLUE);
-        } else {
-            player1 = new Player("no name", rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.BLUE);
-        }
-        System.out.println("player instantiated!");
-        System.out.println("enter player’s name for player 2: ");
-        if (playerName.hasNextLine()) {
-            player2 = new Player(playerName.nextLine(), rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.GRAY);
-        } else {
-            player2 = new Player("no name", rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.GRAY);
-        }
-        System.out.println("player instantiated!");
+        player1 = new Player(name1, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.BLUE);
+        player2 = new Player(name2, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.GRAY);
+        winner = null;
+        end = false;
         walls = new ArrayList<>();
     }
 
@@ -67,31 +49,30 @@ public class Game {
     private void checkCollision(){
         Car c1 = player1.getCar();
         Car c2 = player2.getCar();
-        if (checkCollided(c1) || checkCollided(c2)) {
+        if (checkCollided(c1) && checkCollided(c2)) {
             c1.setCollided();
             c2.setCollided();
+            winner = null;
             end = true;
+        } else if (checkCollided(c2)) {
+            c2.setCollided();
+            c1.stop();
+            winner = player1;
+            end = true;
+            player1.addOneToScore();
+        } else if (checkCollided(c1)) {
+            c1.setCollided();
+            c2.stop();
+            winner = player2;
+            end = true;
+            player2.addOneToScore();
         }
     }
 
-    //MODIFIES: this
     //EFFECTS: return true if car is collided
     private boolean checkCollided(Car c) {
         return c.getPos().getX() > BOARD_X || c.getPos().getY() > BOARD_Y || walls.contains(c.getPos())
                 || c.getPos().getX() < 0 || c.getPos().getY() < 0;
-    }
-
-    //EFFECTS: end game, congratulate winner (if any), add scores
-    public void endGame() {
-        if (!player1.getCar().isCollided()) {
-            System.out.println(player1.getName() + " won!");
-            player1.addOneToScore();
-        } else if (!player2.getCar().isCollided()) {
-            System.out.println(player2.getName() + " won!");
-            player2.addOneToScore();
-        } else {
-            System.out.println("Nobody won");
-        }
     }
 
     //MODIFIES: this
@@ -127,6 +108,8 @@ public class Game {
         player1.resetCar(new Position(rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y)), 0);
         player2.resetCar(new Position(rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y)), 0);
         walls = new ArrayList<>();
+        end = false;
+        winner = null;
     }
 
     //getters
@@ -135,5 +118,19 @@ public class Game {
         return end;
     }
 
+    public List<Position> getWalls() {
+        return walls;
+    }
 
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
 }

@@ -1,9 +1,13 @@
-package model;
+package main.model;
+
+import main.persistence.Writable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.awt.*;
 
 //This class represents a player
-public class Player {
+public class Player implements Writable {
 
     private Car car;
     private int score;
@@ -35,6 +39,14 @@ public class Player {
     //EFFECTS: reset the car
     public void resetCar(Position pos, int direction) {
         this.car = new Car(pos, direction, car.getColor());
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", name);
+        jsonObject.put("score", score);
+        return jsonObject;
     }
 
     //getters

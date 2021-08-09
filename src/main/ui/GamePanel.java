@@ -1,6 +1,6 @@
-package ui;
+package main.ui;
 
-import model.Game;
+import main.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +9,10 @@ import java.awt.*;
 public class GamePanel extends JPanel {
 
     public static final String REPLAY = "R to replay";
+    public static final String CONGRATULATE_WINNER = "The winner is ";
+    public static final String NO_WINNER = "Nobody won";
+
+    private JLabel replay;
 
     private Game game;
 
@@ -16,7 +20,14 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
         setPreferredSize(new Dimension(Game.BOARD_X, Game.BOARD_Y));
         setBackground(Color.PINK);
+        replaySetUp();
+        add(replay);
         this.game = game;
+    }
+
+    private void replaySetUp() {
+        replay = new JLabel(REPLAY);
+        replay.setVisible(false);
     }
 
     @Override
@@ -29,19 +40,20 @@ public class GamePanel extends JPanel {
     }
 
     //MODIFIES: this
-    //EFFECTS: displays at the end of the game & reset if needed
+    //EFFECTS: displays at the end of the game
     private void gameOver(Graphics g) {
         Color saved = g.getColor();
         g.setColor(new Color( 0, 0, 0));
         FontMetrics fm = g.getFontMetrics();
-        displayString(REPLAY, g, fm, Game.BOARD_Y / 2 + 50);
+        replay.setVisible(true);
         g.setColor(saved);
-        game.endGame();
     }
 
-    //EFFECTS: draw a string in the center of window
-    private void displayString(String replay, Graphics g, FontMetrics fm, int i) {
-        int width =fm.stringWidth(replay);
-        g.drawString(replay, (Game.BOARD_X - width) / 2, i);
+    //MODIFIES: this
+    //EFFECTS: set visibility of instructions to false if game is started
+    public void handleInstructionDisplay() {
+        if (!game.isEnd()) {
+            replay.setVisible(false);
+        }
     }
 }

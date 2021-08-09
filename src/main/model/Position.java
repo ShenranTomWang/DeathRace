@@ -1,9 +1,9 @@
-package model;
+package main.model;
 
 import java.awt.*;
 import java.util.Objects;
 
-public class Position implements Item{
+public class Position implements Drawable {
 
     public static final Color COLOR = Color.orange;
     public static final int SIZE_X = 5;

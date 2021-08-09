@@ -1,6 +1,7 @@
-package test;
+package test.model;
 
-import model.*;
+import main.model.Car;
+import main.model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -91,6 +92,12 @@ public class CarTest {
     public void testCollision() {
         car.setCollided();
         assertFalse(car.isCollided());
+        assertEquals(0, car.getSpeed());
+    }
+
+    @Test
+    public void testStop() {
+        car.stop();
         assertEquals(0, car.getSpeed());
     }
 }
