@@ -1,7 +1,6 @@
 package main.persistence;
 
-import main.model.*;
-import org.json.JSONException;
+import main.model.Player;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -25,7 +24,7 @@ public class JsonWriter {
 
     //MODIFIES: this
     //EFFECTS: write player's data to json file
-    public void write(Player player) throws JSONException {
+    public void write(Player player) {
         JSONObject json = player.toJson();
         writer.print(json.toString(TAB));
     }

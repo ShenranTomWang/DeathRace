@@ -5,9 +5,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.util.Random;
 
 //This class represents a player
 public class Player implements Writable {
+
+    public static final String JSON_NAME = "name";
+    public static final String JSON_SCORE = "score";
+    public static final String JSON_COLOR = "color";
 
     private Car car;
     private int score;
@@ -29,6 +34,14 @@ public class Player implements Writable {
         this.car = new Car(new Position(x, y), direction, color);
     }
 
+    public Player(String name, int score, Color color) {
+        this.name = name;
+        this.score = score;
+        Random randX = new Random(Game.BOARD_X);
+        Random randY = new Random(Game.BOARD_Y);
+        this.car = new Car(new Position(randX.nextInt(), randY.nextInt()), 0, color);
+    }
+
     //MODIFIES: this
     //EFFECTS: score + 1
     public void addOneToScore() {
@@ -44,8 +57,9 @@ public class Player implements Writable {
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", name);
-        jsonObject.put("score", score);
+        jsonObject.put(JSON_NAME, name);
+        jsonObject.put(JSON_SCORE, score);
+        jsonObject.put(JSON_COLOR, car.getColor().getRGB());
         return jsonObject;
     }
 
