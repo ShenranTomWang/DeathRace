@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.Random;
 
 //This class represents a player
@@ -61,6 +62,20 @@ public class Player implements Writable {
         jsonObject.put(JSON_SCORE, score);
         jsonObject.put(JSON_COLOR, car.getColor().getRGB());
         return jsonObject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return score == player.score &&
+                Objects.equals(name, player.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(score, name);
     }
 
     //getters

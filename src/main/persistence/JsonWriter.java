@@ -14,12 +14,23 @@ public class JsonWriter {
     public static final int TAB = 4;
     public static final String DIR = "./data/userData.json";
 
+    private String source;
     private PrintWriter writer;
+
+    //EFFECTS: set source to DIR
+    public JsonWriter() {
+        source = DIR;
+    }
+
+    //EFFECTS: set this.source to source
+    public JsonWriter(String source) {
+        this.source = source;
+    }
 
     //MODIFIES: this
     //EFFECTS: opens writer, throw FileNotFoundException if file at DIR cannot be used for writing
     public void open() throws FileNotFoundException {
-        writer = new PrintWriter(new File(DIR));
+        writer = new PrintWriter(new File(source));
     }
 
     //MODIFIES: this

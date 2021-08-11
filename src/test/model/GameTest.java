@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -41,6 +42,6 @@ public class GameTest {
         game.command(KeyEvent.VK_R);
         assertFalse(game.isEnd());
         assertEquals(0, game.getWalls().size());
-        assertEquals(null, game.getWalls());
+        assertEquals(new ArrayList<>(), game.getWalls());
     }
 }

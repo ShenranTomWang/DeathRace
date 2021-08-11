@@ -16,7 +16,7 @@ public class CarTest {
 
     @BeforeEach
     public void setUp() {
-        car = new Car(new Position(0, 0), 0, Color.BLUE);
+        car = new Car(new Position(50, 50), 0, Color.BLUE);
     }
 
     @Test
@@ -49,49 +49,56 @@ public class CarTest {
 
     @Test
     public void testMoveN() {
+        int x = car.getPos().getX();
+        int y = car.getPos().getY();
         ArrayList<Position> wall = car.move();
-        System.out.println(wall);
-        for (int i = 0; i < 10; i++) {
-            assertTrue(wall.contains(new Position(0, i)));
+        for (int i = 0; i < Car.SPEED; i++) {
+            assertTrue(wall.contains(new Position(x, y + i)));
         }
-        assertEquals(new Position(0, Car.SPEED), car.getPos());
+        assertEquals(new Position(x, y - Car.SPEED), car.getPos());
     }
 
     @Test
     public void testMoveS() {
         car.turnLeft();
         car.turnLeft();
+        int x = car.getPos().getX();
+        int y = car.getPos().getY();
         ArrayList<Position> wall = car.move();
         for (int i = 0; i < Car.SPEED; i++) {
-            assertTrue(wall.contains(new Position(0, -i)));
+            assertTrue(wall.contains(new Position(x, y - i)));
         }
-        assertEquals(new Position(0, -Car.SPEED), car.getPos());
+        assertEquals(new Position(x, y + Car.SPEED), car.getPos());
     }
 
     @Test
     public void testMoveW() {
         car.turnLeft();
+        int x = car.getPos().getX();
+        int y = car.getPos().getY();
         ArrayList<Position> wall = car.move();
         for (int i = 0; i < Car.SPEED; i++) {
-            assertTrue(wall.contains(new Position(-i, 0)));
+            assertTrue(wall.contains(new Position(x - i, y)));
         }
-        assertEquals(new Position(-Car.SPEED, 0), car.getPos());
+        assertEquals(new Position(x - Car.SPEED, y), car.getPos());
     }
 
     @Test
     public void testMoveE() {
         car.turnRight();
+        int x = car.getPos().getX();
+        int y = car.getPos().getY();
         ArrayList<Position> wall = car.move();
         for (int i = 0; i < Car.SPEED; i++) {
-            assertTrue(wall.contains(new Position(i, 0)));
+            assertTrue(wall.contains(new Position(x + i, y)));
         }
-        assertEquals(new Position(Car.SPEED, 0), car.getPos());
+        assertEquals(new Position(x + Car.SPEED, y), car.getPos());
     }
 
     @Test
     public void testCollision() {
         car.setCollided();
-        assertFalse(car.isCollided());
+        assertTrue(car.isCollided());
         assertEquals(0, car.getSpeed());
     }
 

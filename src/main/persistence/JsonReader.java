@@ -16,9 +16,21 @@ public class JsonReader {
 
     public static final String SOURCE = "./data/userData.json";
 
+    private String source;
+
+    //EFFECTS: set this.source to SOURCE
+    public JsonReader() {
+        source = SOURCE;
+    }
+
+    //EFFECTS: set this.source to source
+    public JsonReader(String source) {
+        this.source = source;
+    }
+
     //EFFECTS: read file from SOURCE and return the parsed player
     public Player read() throws IOException {
-        String data = readFile(SOURCE);
+        String data = readFile(source);
         JSONObject jsonObject = new JSONObject(data);
         return parsePlayer(jsonObject);
     }
