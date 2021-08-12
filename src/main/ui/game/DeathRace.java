@@ -1,6 +1,7 @@
-package main.ui;
+package main.ui.game;
 
-import main.model.*;
+import main.model.Game;
+import main.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,26 +9,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 //this is the main class
 public class DeathRace extends JFrame {
     public static final int INTERVAL = 1;
-    public static final String NAME1 = "Please enter name for player 1: ";
-    public static final String NAME2 = "Please enter name for player 2: ";
 
     private Game game;
     private GamePanel gp;
     private ScorePanel sp;
     private Timer timer;
+    private ArrayList<Player> playerList;
 
     //EFFECTS: initialize the frame
-    public DeathRace() {
+    public DeathRace(String name1, String name2, ArrayList<Player> playerList) {
         super("DeathRace");
+        this.playerList = playerList;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setSize(new Dimension(Game.BOARD_X, Game.BOARD_Y));
-        game = new Game(getName(NAME1), getName(NAME2));
+        Player p1 = handlePlayer(name1);
+        Player p2 = handlePlayer(name2);
+        game = new Game(p1, name1, p2, name2);
         gp = new GamePanel(game);
         sp = new ScorePanel(game);
         add(gp);
@@ -40,11 +43,14 @@ public class DeathRace extends JFrame {
         timer.start();
     }
 
-    //EFFECTS: print instruction and return name
-    public String getName(String instruction) {
-        System.out.println(instruction);
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+    //EFFECTS: return player with name name in playerList, null if such player do not exist
+    private Player handlePlayer(String name) {
+        for (Player p : playerList) {
+            if (p.getName() == name) {
+                return p;
+            }
+        }
+        return null;
     }
 
     //MODIFIES: this
@@ -75,9 +81,5 @@ public class DeathRace extends JFrame {
         public void keyPressed(KeyEvent e) {
             game.command(e.getKeyCode());
         }
-    }
-
-    public static void main(String[] args) {
-        new DeathRace();
     }
 }

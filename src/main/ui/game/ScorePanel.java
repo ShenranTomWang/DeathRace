@@ -1,4 +1,4 @@
-package main.ui;
+package main.ui.game;
 
 import main.model.*;
 

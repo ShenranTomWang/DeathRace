@@ -1,11 +1,13 @@
 package main.persistence;
 
 import main.model.Player;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 //This class represents a tool to write to a .json file
 //CITATION: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
@@ -35,9 +37,13 @@ public class JsonWriter {
 
     //MODIFIES: this
     //EFFECTS: write player's data to json file
-    public void write(Player player) {
-        JSONObject json = player.toJson();
-        writer.print(json.toString(TAB));
+    public void write(ArrayList<Player> players) {
+        JSONArray array = new JSONArray();
+        for (Player player : players) {
+            JSONObject json = player.toJson();
+            array.put(json);
+        }
+        writer.print(array.toString(TAB));
     }
 
     //MODIFIES: this

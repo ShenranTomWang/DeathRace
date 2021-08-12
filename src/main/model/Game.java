@@ -28,6 +28,22 @@ public class Game {
         walls = new ArrayList<>();
     }
 
+    //EFFECTS: do setup and start game
+    public Game(Player p1, String name1, Player p2, String name2) {
+        Random rand = new Random();
+        player1 = p1;
+        player2 = p2;
+        if (p1 == null) {
+            player1 = new Player(name1, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.BLUE);
+        }
+        if (p2 == null) {
+            player2 = new Player(name2, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.GRAY);
+        }
+        winner = null;
+        end = false;
+        walls = new ArrayList<>();
+    }
+
     //MODIFIES: this
     //EFFECTS: do one cycle of game
     public void doGameCycle(){

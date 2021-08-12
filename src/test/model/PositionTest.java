@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//This class if the test class for Position
 public class PositionTest {
 
     public Position pos;

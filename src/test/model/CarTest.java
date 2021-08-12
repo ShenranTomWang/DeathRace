@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//This class is the test class for Car
 public class CarTest {
 
     public Car car;

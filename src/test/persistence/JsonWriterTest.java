@@ -9,20 +9,28 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+//This class is the test class for JsonWriter
 public class JsonWriterTest {
 
-    public Player playerWrite;
-    public Player playerRead;
+    public Player player1;
+    public Player player2;
+    public ArrayList<Player> playerList;
+    public ArrayList<Player> readList;
     public JsonWriter writer;
     public JsonReader reader;
 
     @BeforeEach
     public void setUp() {
-        playerWrite = new Player("p1", 0, 0, 0, Color.red);
+        player1 = new Player("p1", 0, 0, 0, Color.red);
+        player2 = new Player("p2", 0, 0, 0, Color.green);
+        playerList = new ArrayList<>();
+        playerList.add(player1);
+        playerList.add(player2);
     }
 
     @Test
@@ -31,10 +39,11 @@ public class JsonWriterTest {
             writer = new JsonWriter("./data/writerTest.json");
             reader = new JsonReader("./data/writerTest.json");
             writer.open();
-            writer.write(playerWrite);
+            writer.write(playerList);
             writer.close();
-            playerRead = reader.read();
-            assertEquals(playerWrite, playerRead);
+            readList = reader.read();
+            assertEquals(readList.get(0), playerList.get(0));
+            assertEquals(readList.get(1), playerList.get(1));
         } catch (IOException e) {
             fail("Exception should not be thrown");
         }

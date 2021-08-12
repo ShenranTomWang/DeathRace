@@ -9,6 +9,7 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+//This class is the test class for Player
 public class PlayerTest {
 
     public Player player1;
