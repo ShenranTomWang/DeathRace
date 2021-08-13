@@ -2,21 +2,16 @@ package main.ui.game;
 
 import main.model.Game;
 import main.model.Player;
-import main.persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 
 //this is the main class
-//TODO: implement data storing in this class
 public class DeathRace extends JFrame {
     public static final int INTERVAL = 1;
-    public static final String SAVE_SUCCESSFUL = "data saved";
-    public static final String SAVE_FAIL = "an error has occurred, unable to save data";
 
     private Game game;
     private GamePanel gp;
@@ -79,30 +74,7 @@ public class DeathRace extends JFrame {
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_S && game.isEnd()) {
-                save();
-            }
             game.command(e.getKeyCode());
-        }
-    }
-
-    //MODIFIES: this
-    //EFFECTS: save data to JSON file
-    private void save() {
-        JsonWriter writer = new JsonWriter();
-        if (!playerList.contains(game.getPlayer1())) {
-            playerList.add(game.getPlayer1());
-        }
-        if (!playerList.contains(game.getPlayer2())) {
-            playerList.add(game.getPlayer2());
-        }
-        try {
-            writer.open();
-            writer.write(playerList);
-            writer.close();
-            gp.displayWarning(SAVE_SUCCESSFUL);
-        } catch (FileNotFoundException e) {
-            gp.displayWarning(SAVE_FAIL);
         }
     }
 }
