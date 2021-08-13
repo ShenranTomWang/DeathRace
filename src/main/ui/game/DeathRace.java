@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 
 //this is the main class
+//TODO: implement data storing in this class
 public class DeathRace extends JFrame {
     public static final int INTERVAL = 1;
 
