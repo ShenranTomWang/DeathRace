@@ -35,6 +35,8 @@ public class Player implements Writable {
         this.car = new Car(new Position(x, y), direction, color);
     }
 
+    //REQUIRES: score >= 0
+    //EFFECTS: create new user with name, score, and car with color color. Only used for restoring data
     public Player(String name, int score, Color color) {
         this.name = name;
         this.score = score;

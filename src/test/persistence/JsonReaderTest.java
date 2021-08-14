@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 //This class is the test class for JsonReader
 public class JsonReaderTest {
@@ -19,11 +20,12 @@ public class JsonReaderTest {
     public void testReadUser() {
         reader = new JsonReader("./data/readerTest.json");
         try {
-            ArrayList<Player> playerList = reader.read();
+            HashSet<Player> playerList = reader.read();
             assertEquals(1, playerList.size());
-            assertEquals(playerList.get(0).getName(), "p1");
-            assertEquals(playerList.get(0).getScore(), 0);
-            assertEquals(playerList.get(0).getCar().getColor().getRGB(), Color.red.getRGB());
+            Player[] playerArray = (Player[]) playerList.toArray();
+            assertEquals(playerArray[0].getName(), "p1");
+            assertEquals(playerArray[0].getScore(), 0);
+            assertEquals(playerArray[0].getCar().getColor().getRGB(), Color.red.getRGB());
         } catch (IOException exception) {
             fail("Exception should not be thrown");
         }
@@ -33,7 +35,7 @@ public class JsonReaderTest {
     public void testReadFileNotFound() {
         reader = new JsonReader("./data/noSuchFile.json");
         try {
-            ArrayList<Player> playerList = reader.read();
+            HashSet<Player> playerList = reader.read();
             fail("Exception should be thrown");
         } catch (IOException e) {
             //success

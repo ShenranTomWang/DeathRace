@@ -21,8 +21,8 @@ public class Game {
     //EFFECTS: do setup and start game
     public Game(String name1, String name2){
         Random rand = new Random();
-        player1 = new Player(name1, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.BLUE);
-        player2 = new Player(name2, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.GRAY);
+        player1 = new Player(name1, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, new Color(rand.nextInt()));
+        player2 = new Player(name2, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, new Color(rand.nextInt()));
         winner = null;
         end = false;
         walls = new ArrayList<>();
@@ -34,10 +34,10 @@ public class Game {
         player1 = p1;
         player2 = p2;
         if (p1 == null) {
-            player1 = new Player(name1, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.BLUE);
+            player1 = new Player(name1, 0, new Color(rand.nextInt()));
         }
         if (p2 == null) {
-            player2 = new Player(name2, rand.nextInt(BOARD_X), rand.nextInt(BOARD_Y), 0, Color.GRAY);
+            player2 = new Player(name2, 0, new Color(rand.nextInt()));
         }
         winner = null;
         end = false;

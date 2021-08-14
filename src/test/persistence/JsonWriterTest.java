@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 //This class is the test class for JsonWriter
@@ -19,8 +19,8 @@ public class JsonWriterTest {
 
     public Player player1;
     public Player player2;
-    public ArrayList<Player> playerList;
-    public ArrayList<Player> readList;
+    public HashSet<Player> playerList;
+    public HashSet<Player> readList;
     public JsonWriter writer;
     public JsonReader reader;
 
@@ -28,7 +28,7 @@ public class JsonWriterTest {
     public void setUp() {
         player1 = new Player("p1", 0, 0, 0, Color.red);
         player2 = new Player("p2", 0, 0, 0, Color.green);
-        playerList = new ArrayList<>();
+        playerList = new HashSet<>();
         playerList.add(player1);
         playerList.add(player2);
     }
@@ -42,8 +42,9 @@ public class JsonWriterTest {
             writer.write(playerList);
             writer.close();
             readList = reader.read();
-            assertEquals(readList.get(0), playerList.get(0));
-            assertEquals(readList.get(1), playerList.get(1));
+            Player[] readArray = (Player[]) readList.toArray();
+            assertTrue(playerList.contains(readArray[0]));
+            assertTrue(playerList.contains(readArray[1]));
         } catch (IOException e) {
             fail("Exception should not be thrown");
         }

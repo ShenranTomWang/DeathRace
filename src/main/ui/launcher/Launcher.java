@@ -8,7 +8,7 @@ import main.ui.game.DeathRace;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Launcher extends JFrame {
 
@@ -16,13 +16,15 @@ public class Launcher extends JFrame {
     public static final String NAME1 = "Please enter name for player 1: ";
     public static final String NAME2 = "Please enter name for player 2: ";
 
-
     private JLabel warning;
     private JsonReader reader;
-    private ArrayList<Player> playerList;
-    private PlayerPanel p1Panel;
-    private PlayerPanel p2Panel;
+    private HashSet<Player> playerList;
+    private JPanel playerPanel;
     private JButton enter;
+    private JLabel instruction1;
+    private JLabel instruction2;
+    private JTextField input1;
+    private JTextField input2;
 
     public Launcher() {
         super("DeathRace Launcher");
@@ -46,7 +48,7 @@ public class Launcher extends JFrame {
             playerList = reader.read();
         } catch (IOException exception) {
             showWarning(READ_FAIL);
-            playerList = new ArrayList<>();
+            playerList = new HashSet<>();
         }
     }
 
@@ -59,30 +61,52 @@ public class Launcher extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: set up elements in mainFrame
-    //TODO: finish this method
     private void frameSetUp() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
         setSize(new Dimension(Game.BOARD_X, Game.BOARD_Y));
         centerOnScreen();
         setLayout(new BorderLayout());
+        playerPanelSetUp();
 
-        p1Panel = new PlayerPanel(NAME1);
-        p2Panel = new PlayerPanel(NAME2);
+        add(playerPanel, BorderLayout.CENTER);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set up playerPanel
+    private void playerPanelSetUp() {
+        playerPanel = new JPanel();
+        setUpElements();
+        playerPanel.setBorder(BorderFactory.createEmptyBorder());
+        playerPanel.setLayout(null);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set up elements in this panel
+    private void setUpElements() {
+        instruction1 = new JLabel(NAME1);
+        instruction2 = new JLabel(NAME2);
+        input1 = new JTextField();
+        input2 = new JTextField();
         enter = new JButton("continue");
         warning = new JLabel();
 
-        warning.setVisible(false);
+        instruction1.setBounds(25, 5, 200, 30);
+        input1.setBounds(25, 50, 150, 25);
+        instruction2.setBounds(Game.BOARD_X - 225, 5, 200, 30);
+        input2.setBounds(Game.BOARD_X - 225, 50, 150, 25);
         enter.addActionListener(e -> {
             setVisible(false);
-            new DeathRace(p1Panel.getInput(), p2Panel.getInput(), playerList);
+            new DeathRace(input1.getText(), input2.getText(), playerList);
         });
-        enter.setBounds(Game.BOARD_X / 2 - 15, Game.BOARD_Y / 2 - 5, 30, 10);
+        enter.setBounds(Game.BOARD_X / 2 - 50, Game.BOARD_Y - 100, 100, 35);
+        warning.setVisible(false);
 
-        add(warning);
-        add(p1Panel, BorderLayout.WEST);
-        add(p2Panel, BorderLayout.EAST);
-        add(enter);
+        playerPanel.add(instruction1);
+        playerPanel.add(input1);
+        playerPanel.add(instruction2);
+        playerPanel.add(input2);
+        playerPanel.add(warning);
+        playerPanel.add(enter);
     }
 
     public static void main(String[] args) {

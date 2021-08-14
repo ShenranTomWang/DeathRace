@@ -9,10 +9,11 @@ import java.awt.*;
 public class GamePanel extends JPanel {
 
     public static final String REPLAY = "R to replay";
-    public static final String CONGRATULATE_WINNER = "The winner is ";
-    public static final String NO_WINNER = "Nobody won";
+    public static final String SAVE = "S to save data";
 
     private JLabel replay;
+    private JLabel save;
+    private JLabel warning;
 
     private Game game;
 
@@ -21,12 +22,44 @@ public class GamePanel extends JPanel {
         setPreferredSize(new Dimension(Game.BOARD_X, Game.BOARD_Y));
         setBackground(Color.PINK);
         replaySetUp();
+        saveSetUp();
+        warningSetUp();
+
+        setBorder(BorderFactory.createEmptyBorder());
+        setLayout(null);
+
         add(replay);
+        add(save);
+        add(warning);
         this.game = game;
     }
 
+    //MODIFIES: this
+    //EFFECTS: set up save
+    private void saveSetUp() {
+        save = new JLabel(SAVE);
+        save.setBounds(Game.BOARD_X / 2 - 50, Game.BOARD_Y / 2 - 10, 100, 20);
+        save.setVisible(false);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set up warning
+    private void warningSetUp() {
+        warning = new JLabel();
+        warning.setBounds(Game.BOARD_X / 2 - 50, Game.BOARD_Y / 2 + 10, 100, 20);
+        warning.setVisible(false);
+    }
+
+    public void displayWarning(String ins) {
+        warning.setText(ins);
+        warning.setVisible(true);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set up replay
     private void replaySetUp() {
         replay = new JLabel(REPLAY);
+        replay.setBounds(Game.BOARD_X / 2 - 50, Game.BOARD_Y / 2 - 35, 100, 20);
         replay.setVisible(false);
     }
 
@@ -46,6 +79,7 @@ public class GamePanel extends JPanel {
         g.setColor(new Color( 0, 0, 0));
         FontMetrics fm = g.getFontMetrics();
         replay.setVisible(true);
+        save.setVisible(true);
         g.setColor(saved);
     }
 
@@ -54,6 +88,8 @@ public class GamePanel extends JPanel {
     public void handleInstructionDisplay() {
         if (!game.isEnd()) {
             replay.setVisible(false);
+            save.setVisible(false);
+            warning.setVisible(false);
         }
     }
 }

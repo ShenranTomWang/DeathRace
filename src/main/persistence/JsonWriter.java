@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 //This class represents a tool to write to a .json file
 //CITATION: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
@@ -37,7 +37,7 @@ public class JsonWriter {
 
     //MODIFIES: this
     //EFFECTS: write player's data to json file
-    public void write(ArrayList<Player> players) {
+    public void write(HashSet<Player> players) {
         JSONArray array = new JSONArray();
         for (Player player : players) {
             JSONObject json = player.toJson();

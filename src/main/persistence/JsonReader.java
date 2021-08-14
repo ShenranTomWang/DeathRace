@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Stream;
 
 //This class is a reader tool using JSON to read data stored previously
@@ -31,15 +31,15 @@ public class JsonReader {
     }
 
     //EFFECTS: read file from SOURCE and return the parsed player
-    public ArrayList<Player> read() throws IOException {
+    public HashSet<Player> read() throws IOException {
         String data = readFile(source);
         JSONArray jsonArray = new JSONArray(data);
         return parsePlayerList(jsonArray);
     }
 
     //EFFECTS: parse a player from given JOSNObject
-    private ArrayList<Player> parsePlayerList(JSONArray array) {
-        ArrayList<Player> playerList = new ArrayList<>();
+    private HashSet<Player> parsePlayerList(JSONArray array) {
+        HashSet<Player> playerList = new HashSet<>();
         for (int i = 0; i < array.length(); i++) {
             JSONObject jsonObject = array.getJSONObject(i);
             String name = jsonObject.getString(Player.JSON_NAME);
