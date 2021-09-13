@@ -26,8 +26,10 @@ public class ScorePanel extends JPanel {
     private void setUpLabels() {
         player1 = new JLabel(game.getPlayer1().getName() + ": " + game.getPlayer1().getScore());
         player1.setBounds(5, 5, 20, 10);
+        player1.setForeground(game.getPlayer1().getCar().getColor());
         player2 = new JLabel(game.getPlayer2().getName() + ": " + game.getPlayer2().getScore());
         player2.setBounds(Game.BOARD_X - 25, 5, 20, 10);
+        player2.setForeground(game.getPlayer2().getCar().getColor());
 
     }
 
