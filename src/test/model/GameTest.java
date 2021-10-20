@@ -2,6 +2,7 @@ package test.model;
 
 import main.model.Car;
 import main.model.Game;
+import main.model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,5 +45,17 @@ public class GameTest {
         assertFalse(game.isEnd());
         assertEquals(0, game.getWalls().size());
         assertEquals(new ArrayList<>(), game.getWalls());
+    }
+
+    @Test
+    public void testDoGameCycle() {
+        ArrayList<Position> wall = new ArrayList<>();
+        wall.add(game.getPlayer1().getCar().getPos());
+        wall.add(game.getPlayer2().getCar().getPos());
+        game.doGameCycle();
+        for (int i = 0; i < wall.size(); i++) {
+            assertEquals(wall.get(i).getX(), game.getWalls().get(i).getX());
+            assertEquals(wall.get(i).getY() + 1, game.getWalls().get(i).getY());
+        }
     }
 }

@@ -6,8 +6,6 @@ import main.persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
@@ -68,14 +66,11 @@ public class DeathRace extends JFrame {
     //MODIFIES: this
     //EFFECTS: initialize timer
     private void addTimer() {
-        timer = new Timer(INTERVAL, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                    game.doGameCycle();
-                    gp.repaint();
-                    gp.handleInstructionDisplay();
-                    sp.update();
-            }
+        timer = new Timer(INTERVAL, e -> {
+                game.doGameCycle();
+                gp.repaint();
+                gp.handleInstructionDisplay();
+                sp.update();
         });
     }
 

@@ -35,10 +35,8 @@ public class Position implements Drawable {
 
     @Override
     public void draw(Graphics g) {
-        Color savedCol = g.getColor();
         g.setColor(COLOR);
         g.fillOval(x - SIZE_X / 2, y - SIZE_Y / 2, SIZE_X, SIZE_Y);
-        g.setColor(savedCol);
     }
 
     @Override

@@ -81,10 +81,8 @@ public class Car implements Drawable {
 
     @Override
     public void draw(Graphics g) {
-        Color savedCol = g.getColor();
         g.setColor(color);
         g.fillOval(pos.getX() - SIZE_X / 2, pos.getY() - SIZE_Y / 2, SIZE_X, SIZE_Y);
-        g.setColor(savedCol);
     }
 
     //getters

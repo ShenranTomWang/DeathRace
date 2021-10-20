@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 //This class represents the game, in charge of managing data of the game
-public class Game {
+public class Game implements Drawable {
 
     public static final int BOARD_X = 500;
     public static final int BOARD_Y = 500;

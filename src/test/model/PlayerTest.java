@@ -1,13 +1,14 @@
 package test.model;
 
 import main.model.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 //This class is the test class for Player
 public class PlayerTest {
@@ -49,5 +50,20 @@ public class PlayerTest {
         player1.getCar().setCollided();
         player1.resetCar(new Position(0, 0), 0);
         assertFalse(player1.getCar().isCollided());
+    }
+
+    @Test
+    public void testToJsonNormal() {
+        try {
+            JSONObject p1 = player1.toJson();
+            String name = p1.getString(Player.JSON_NAME);
+            assertEquals(name, player1.getName());
+            int score = p1.getInt(Player.JSON_SCORE);
+            assertEquals(score, player1.getScore());
+            int RGB = p1.getInt(Player.JSON_COLOR);
+            assertEquals(RGB, player1.getCar().getColor().getRGB());
+        } catch (JSONException e) {
+            fail();
+        }
     }
 }
