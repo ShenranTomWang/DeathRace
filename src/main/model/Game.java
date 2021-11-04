@@ -57,7 +57,9 @@ public class Game implements Drawable {
         List<Position> w1 = player1.getCar().move();
         List<Position> w2 = player2.getCar().move();
         walls.addAll(w1);
+        assert walls.contains(w1);
         walls.addAll(w2);
+        assert walls.contains(w2);
     }
 
     //MODIFIES: this
@@ -68,17 +70,25 @@ public class Game implements Drawable {
         if (checkCollided(c1) && checkCollided(c2)) {
             c1.setCollided();
             c2.setCollided();
+            assert c1.isCollided();
+            assert c2.isCollided();
             winner = null;
             end = true;
         } else if (checkCollided(c2)) {
             c2.setCollided();
+            assert c2.isCollided();
             c1.stop();
+            assert !c1.isCollided();
+            assert c1.getSpeed() == 0;
             winner = player1;
             end = true;
             player1.addOneToScore();
         } else if (checkCollided(c1)) {
             c1.setCollided();
+            assert c1.isCollided();
             c2.stop();
+            assert !c2.isCollided();
+            assert c2.getSpeed() == 0;
             winner = player2;
             end = true;
             player2.addOneToScore();

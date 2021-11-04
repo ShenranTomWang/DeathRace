@@ -31,6 +31,7 @@ public class Car implements Drawable {
     public void turnLeft() {
         int dir = direction;
         direction -= TURN_ANGLE;
+        assert direction % 90 == 0;
         if (direction < 0) {
             direction = 360 - (TURN_ANGLE - dir);
         }
@@ -41,6 +42,7 @@ public class Car implements Drawable {
     public void turnRight() {
         int dir = direction;
         direction += TURN_ANGLE;
+        assert direction % 90 == 0;
         if (direction > 360) {
             direction = (TURN_ANGLE + dir) - 360;
         }
